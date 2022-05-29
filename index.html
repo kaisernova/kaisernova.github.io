@@ -4,13 +4,15 @@
       function bajar() {
         fetch('https://siasky.net/AACsAqzOd3G3lFFpSMc5W36k4lyRFnathnUqRg2V4Dz2_g')
               .then(response => response.json())
-              .then(data => console.log(data));
+              .then(data => console.log(data); console.log("datos ook:"+JSON.stringify(data)));
       }
     </script>
   </head>
   <body>
     <h1>testing rflz</h1>
-    <img src="https://siasky.net/_AyaXkSW1m0Xc6hHWCilV_bBeLWzzdU1U6EBZArfRQBhVA"/>
+    
     <a href="#" onclick="bajar()" >click me</a>
+    <br/>
+    <img src="https://siasky.net/_AyaXkSW1m0Xc6hHWCilV_bBeLWzzdU1U6EBZArfRQBhVA"/>
   </body>
 </html>
