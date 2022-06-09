@@ -43,20 +43,26 @@
     <!-- Navbar -->
     <div class="w3-top">
         <div class="w3-bar w3-red w3-card w3-left-align w3-large">
-            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-medium w3-red"
                 href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i
                     class="fa fa-bars"></i></a>
             <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-            <input class="w3-bar-item w3-input w3-border-0 w3-padding-large w3-white" type="text" alt="alt here"
-                placeholder="placeholde here"></input>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 2</a>
+            <form class="example"  action="/action_page.php" style="margin:auto;max-width:300px">
+                <input class="w3-bar-item w3-input w3-border-0 w3-padding-large w3-white w3-hide-small" type="search" alt="alt here"
+                placeholder="Buscar" style="padding: 10px;  font-size: 17px;  border: 1px solid grey;  float: left;  width: 80%;  background: #f1f1f1;"></input>
+                <button type="submit" class="w3-hide-small  w3-red" style="float: left;  width: 20%;  padding: 10px;  color: white;  font-size: 17px;  border:none;  cursor: pointer;"><i class="fa fa-search"></i></button>
+            </form>            
+
         </div>
 
         <!-- Navbar on small screens -->
         <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+            <form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
+                <input class="w3-bar-item w3-input w3-border w3-padding-large w3-white" type="search" alt="alt here"
+                placeholder="Buscar" style="padding: 10px;  font-size: 17px;  border: 1px solid grey;  float: left;  width: 80%;  background: #f1f1f1;"></input>
+                <button type="submit" style="float: left;  width: 20%;  padding: 10px;  background: #2196F3;  color: white;  font-size: 17px;  border: 1px solid grey;  border-left: none;  cursor: pointer;"><i class="fa fa-search"></i></button>
+              </form>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large"> </a>
         </div>
     </div>
 
