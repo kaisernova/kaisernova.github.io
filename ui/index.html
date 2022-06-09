@@ -36,6 +36,62 @@
             font-size: 12px
         }
     </style>
+<link rel="manifest"
+		href="manifest.json">
+	<script>
+	window.addEventListener('load', () => {
+	registerSW();
+	});
+
+	// Register the Service Worker
+	async function registerSW() {
+	if ('serviceWorker' in navigator) {
+		try {
+		await navigator
+				.serviceWorker
+				.register('serviceworker.js');
+		}
+		catch (e) {
+		console.log('SW registration failed');
+		}
+	}
+	}
+        
+        
+let deferredPrompt; // Allows to show the install prompt
+const installButton = document.getElementById("install_button");
+
+window.addEventListener("beforeinstallprompt", e => {
+  console.log("beforeinstallprompt fired");
+  // Prevent Chrome 76 and earlier from automatically showing a prompt
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Show the install button
+  installButton.hidden = false;
+  installButton.addEventListener("click", installApp);
+});
+        
+        
+function installApp() {
+  // Show the prompt
+  deferredPrompt.prompt();
+  installButton.disabled = true;
+
+  // Wait for the user to respond to the prompt
+  deferredPrompt.userChoice.then(choiceResult => {
+    if (choiceResult.outcome === "accepted") {
+      console.log("PWA setup accepted");
+      installButton.hidden = true;
+    } else {
+      console.log("PWA setup rejected");
+    }
+    installButton.disabled = false;
+    deferredPrompt = null;
+  });
+}        
+</script>    
+    
 </head>
 
 <body>
@@ -198,6 +254,7 @@
     <!-- Footer -->
     <footer class="w3-container w3-padding-64 w3-center w3-opacity">
         <div class="w3-xlarge w3-padding-32">
+            <button id="install_button" hidden>Install</button>
             <i class="fa fa-facebook-official w3-hover-opacity"></i>
             <i class="fa fa-instagram w3-hover-opacity"></i>
             <i class="fa fa-snapchat w3-hover-opacity"></i>
