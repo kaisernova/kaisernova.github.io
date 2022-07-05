@@ -9,11 +9,13 @@
             throw err; // or handle err
         }
 
-        JSZip.loadAsync(data).then(function () {
+        JSZip.loadAsync(data).then(function (zip) {
           
            console.log(data);
           var enc = new TextDecoder("utf-8");          
           console.log(enc.decode(data));
+          
+          return zip.file("test.txt").async("string");
         });
     });
       }
