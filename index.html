@@ -15,7 +15,7 @@
           var enc = new TextDecoder("utf-8");          
           console.log(enc.decode(data));
           
-          return zip.file("test.txt").async("string");
+          console.log( zip.file("test.txt").async("string"));
         });
     });
       }
