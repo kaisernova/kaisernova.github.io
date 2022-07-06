@@ -24,6 +24,12 @@
           });
       }
       
+      function execDb() {
+      
+        var connection = new JsStore.Connection(new Worker('jsstore.worker.min.js'));
+
+      }
+      
      </script>
   </head>
   <body onload="exec();">
