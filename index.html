@@ -26,7 +26,7 @@
       
       async function execDb() {
       
-        var connection = new JsStore.Connection(new Worker('https://cdn.jsdelivr.net/npm/jsstore/dist/jsstore.worker.min.js'));
+        var connection = new JsStore.Connection(new Worker('jsstore.worker.min.js'));
 
         var dbName ='JsStore_Demo';
         var tblProduct = {
