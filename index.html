@@ -5,102 +5,116 @@
     <script src="/jsstore.worker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsstore/dist/jsstore.min.js"></script>
     <script>
-      function exec() {
-          JSZipUtils.getBinaryContent('/test.zip', function (err, data) {
-              if (err) {
-                  throw err; // or handle err
-              }
+function exec() {
+    JSZipUtils.getBinaryContent('/test.zip', function (err, data) {
+        if (err) {
+            throw err; // or handle err
+        }
 
-              JSZip.loadAsync(data).then(function (zip) {
+        JSZip.loadAsync(data).then(function (zip) {
 
-                 for(let [filename, file] of Object.entries(zip.files)) {
-                      // TODO Your code goes here
-                      console.log("filename:"+filename);
-                  }
-                
-                  console.log(data);
-                  var enc = new TextDecoder("utf-8");
-                  console.log(enc.decode(data));
+            for (let [filename, file] of Object.entries(zip.files)) {
+                // TODO Your code goes here
+                console.log("filename:" + filename);
 
-                  return zip.file("test.txt").async("string");
-              }).then(function (string) {
-                  console.log(string)
-              });
-          });
-      }
-      
-      async function execDb() {
-      
-        var connection = new JsStore.Connection(new Worker('jsstore.worker.min.js'));
-
-        var dbName ='JsStore_Demo';
-        var tblProduct = {
-            name: 'Product',
-            columns: {
-                // Here "Id" is name of column 
-                id:{ primaryKey: true, autoIncrement: true },
-                itemName:  { notNull: true, dataType: "string" },
-                price:  { notNull: true, dataType: "number" },
-                quantity : { notNull: true, dataType: "number" }
+                /*
+                console.log(data);
+                var enc = new TextDecoder("utf-8");
+                console.log(enc.decode(data));
+                 */
+                return zip.file(filename).async("string");
             }
-        };
-        var database = {
-            name: dbName,
-            tables: [tblProduct]
-        }
-        const isDbCreated = await connection.initDb(database);
-        if(isDbCreated === true){
-            console.log("db created");
-            // here you can prefill database with some data
-        }
-        else {
-            console.log("db opened");
-        }
-        
-        var value = {
-            itemName: 'Blue Jeans',
-            price: 2000,
-            quantity: 1000
-        }
-        
-        var insertCount = await connection.insert({
-            into: 'Product',
-            values: [value]
-        });
 
-        console.log(`${insertCount} rows inserted`);
-        // results will be array of objects
-        var results = await connection.select({
-            from: 'Product',
-            where: {
-                 price: 2000
-            }
+        }).then(function (string) {
+            console.log(string)
         });
+    });
+}
 
-        console.log(results.length + 'record found');
-        console.log(JSON.stringify(results));
-        
-        var rowsUpdated = await connection.update({ 
-            in: 'Product',
-            where: {
-                itemName: {
-                    like: '%black%'
-                }
+async function execDb() {
+
+    var connection = new JsStore.Connection(new Worker('jsstore.worker.min.js'));
+
+    var dbName = 'JsStore_Demo';
+    var tblProduct = {
+        name: 'Product',
+        columns: {
+            // Here "Id" is name of column
+            id: {
+                primaryKey: true,
+                autoIncrement: true
             },
-            set: {
-                quantity: 2000
+            itemName: {
+                notNull: true,
+                dataType: "string"
+            },
+            price: {
+                notNull: true,
+                dataType: "number"
+            },
+            quantity: {
+                notNull: true,
+                dataType: "number"
             }
-        });
-        console.log(rowsUpdated + ' rows updated');
-        var rowsDeleted = await connection.remove({
-            from: 'Product',
-            where: {
-                price: 2000
-            }
-        });
-        console.log(rowsDeleted + ' record deleted');
+        }
+    };
+    var database = {
+        name: dbName,
+        tables: [tblProduct]
+    }
+    const isDbCreated = await connection.initDb(database);
+    if (isDbCreated === true) {
+        console.log("db created");
+        // here you can prefill database with some data
+    } else {
+        console.log("db opened");
+    }
 
-      }
+    var value = {
+        itemName: 'Blue Jeans',
+        price: 2000,
+        quantity: 1000
+    }
+
+    var insertCount = await connection.insert({
+        into: 'Product',
+        values: [value]
+    });
+
+    console.log(`${insertCount} rows inserted`);
+    // results will be array of objects
+    var results = await connection.select({
+        from: 'Product',
+        where: {
+            price: 2000
+        }
+    });
+
+    console.log(results.length + 'record found');
+    console.log(JSON.stringify(results));
+
+    var rowsUpdated = await connection.update({
+        in: 'Product',
+        where: {
+            itemName: {
+                like: '%black%'
+            }
+        },
+        set: {
+            quantity: 2000
+        }
+    });
+    console.log(rowsUpdated + ' rows updated');
+    var rowsDeleted = await connection.remove({
+        from: 'Product',
+        where: {
+            price: 2000
+        }
+    });
+    console.log(rowsDeleted + ' record deleted');
+
+}
+
       
      </script>
   </head>
