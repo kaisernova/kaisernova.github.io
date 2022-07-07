@@ -51,6 +51,50 @@
         else {
             console.log("db opened");
         }
+        
+        var value = {
+            itemName: 'Blue Jeans',
+            price: 2000,
+            quantity: 1000
+        }
+        
+        var insertCount = await connection.insert({
+            into: 'Product',
+            values: [value]
+        });
+
+        console.log(`${insertCount} rows inserted`);
+        // results will be array of objects
+        var results = await connection.select({
+            from: 'Product',
+            where: {
+                id: 5
+            }
+        });
+
+        console.log(results.length + 'record found');
+        console.log(results);
+        
+        var rowsUpdated = await connection.update({ 
+            in: 'Product',
+            where: {
+                itemName: {
+                    like: '%black%'
+                }
+            },
+            set: {
+                quantity: 2000
+            }
+        });
+        console.log(rowsUpdated + ' rows updated');
+        var rowsDeleted = await connection.remove({
+            from: 'Product',
+            where: {
+                price: 2000
+            }
+        });
+        console.log(rowsDeleted + ' record deleted');
+
       }
       
      </script>
