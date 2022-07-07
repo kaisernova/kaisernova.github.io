@@ -13,6 +13,11 @@
 
               JSZip.loadAsync(data).then(function (zip) {
 
+                 for(let [filename, file] of Object.entries(zip.files)) {
+                      // TODO Your code goes here
+                      console.log("filename:"+filename);
+                  }
+                
                   console.log(data);
                   var enc = new TextDecoder("utf-8");
                   console.log(enc.decode(data));
