@@ -73,7 +73,7 @@
         });
 
         console.log(results.length + 'record found');
-        console.log(results);
+        console.log(JSON.stringify(results));
         
         var rowsUpdated = await connection.update({ 
             in: 'Product',
